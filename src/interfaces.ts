@@ -13,7 +13,7 @@ export interface LLMRequest {
 }
 
 export interface LLMResponse {
-  text: string; 
+  text: string;
 }
 
 export interface LLMClient {

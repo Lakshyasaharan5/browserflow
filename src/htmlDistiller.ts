@@ -1,13 +1,18 @@
 import { Page } from "playwright";
 import { AXNodeLite } from "./types";
 
-export async function distill(page: Page): Promise<{ llmReadyTree: string; xpathMap: Map<number, string> }> {
+export async function distill(
+  page: Page,
+): Promise<{ llmReadyTree: string; xpathMap: Map<number, string> }> {
   const cdp = await page.context().newCDPSession(page);
 
   await cdp.send("DOM.enable");
   await cdp.send("Accessibility.enable");
 
-  const { root } = await cdp.send("DOM.getDocument", { depth: -1, pierce: true });
+  const { root } = await cdp.send("DOM.getDocument", {
+    depth: -1,
+    pierce: true,
+  });
 
   const xpathMap = buildXpathMap(root);
 
@@ -55,11 +60,7 @@ function buildAXTree(nodes: AXNodeLite[]): AXNodeLite[] {
 function pruneAXTree(nodes: AXNodeLite[]): AXNodeLite[] {
   const cleaned: AXNodeLite[] = [];
 
-  const structuralRoles = new Set([
-    "generic",
-    "none",
-    "InlineTextBox",
-  ]);
+  const structuralRoles = new Set(["generic", "none", "InlineTextBox"]);
 
   for (const node of nodes) {
     const { role, name, backendDOMNodeId, ignored } = node;
@@ -98,7 +99,7 @@ function pruneAXTree(nodes: AXNodeLite[]): AXNodeLite[] {
 
 function removeRedundantStaticTextChildren(
   parentName: string,
-  children: AXNodeLite[]
+  children: AXNodeLite[],
 ): AXNodeLite[] {
   if (!parentName) return children;
 
@@ -128,7 +129,7 @@ function printTree(nodes: AXNodeLite[], depth = 0) {
 
   for (const node of nodes) {
     console.log(
-      `${indent}[${node.backendDOMNodeId ?? "-"}] ${node.role}${node.name ? ` "${node.name}"` : ""}`
+      `${indent}[${node.backendDOMNodeId ?? "-"}] ${node.role}${node.name ? ` "${node.name}"` : ""}`,
     );
 
     if (node.children.length) {
@@ -168,8 +169,7 @@ function buildXpathMap(domRoot: any) {
 
   const htmlNode = domRoot.children?.find(
     (child: any) =>
-      child.nodeType === 1 &&
-      child.nodeName.toLowerCase() === "html"
+      child.nodeType === 1 && child.nodeName.toLowerCase() === "html",
   );
 
   if (!htmlNode) throw new Error("HTML root not found");
@@ -184,7 +184,7 @@ function buildXpathMap(domRoot: any) {
     if (!node.children) return;
 
     const elementChildren = node.children.filter(
-      (child: any) => child.nodeType === 1
+      (child: any) => child.nodeType === 1,
     );
 
     const tagCounter: Record<string, number> = {};

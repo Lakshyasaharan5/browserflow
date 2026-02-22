@@ -13,4 +13,3 @@ export type AXNodeLite = {
   ignored?: boolean;
   children: AXNodeLite[];
 };
-

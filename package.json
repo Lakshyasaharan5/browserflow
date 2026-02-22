@@ -2,14 +2,18 @@
   "name": "stagehand-lite",
   "version": "1.0.0",
   "description": "Browser automation agent",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "start": "tsc && node dist/index.js",
     "dev": "nodemon --watch src --exec ts-node src/index.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write \"src/**/*.+(ts|js|json)\""
+    "format": "prettier --write \"src/**/*.+(ts|js|json)\"",
+    "test": "vitest",
+    "run": "tsx scripts/run.ts"
   },
   "repository": {
     "type": "git",
@@ -44,6 +48,8 @@
     "ai": "^6.0.90",
     "dotenv": "^17.3.1",
     "playwright": "^1.58.2",
+    "tsx": "^4.21.0",
+    "vitest": "^4.0.18",
     "zod": "^4.3.6"
   }
 }

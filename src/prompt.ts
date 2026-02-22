@@ -39,9 +39,12 @@ export function buildPrompt(userQuery: string, url: string): string {
 
 function buildToolSection() {
   const tools: { name: string; description: string }[] = [
-    { name: "ariaTree", description: "Get an accessibility (ARIA) tree for full page context" },
-    { name: "click", description: "Click on an element" },
-    { name: "type", description: "Type text into a field" },
+    {
+      name: "ariaTree",
+      description: "Get an accessibility (ARIA) tree for full page context",
+    },
+    { name: "clickTool", description: "Click on an element" },
+    { name: "typeTool", description: "Type text into a field" },
   ];
 
   const toolLines = tools

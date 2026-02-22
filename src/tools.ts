@@ -6,16 +6,18 @@ import { z } from "zod";
 export function createTools(state: AgentState): ToolSet {
   const toolSet: ToolSet = {
     ariaTree: tool({
-      description: "gets the accessibility (ARIA) hybrid tree text for the current page. use this to understand structure and content.",
+      description:
+        "gets the accessibility (ARIA) hybrid tree text for the current page. use this to understand structure and content.",
       inputSchema: z.object({}),
       execute: async () => {
         const { llmReadyTree, xpathMap } = await distill(state.page);
         state.xpathMap = xpathMap;
-        return llmReadyTree;  
+        return llmReadyTree;
       },
     }),
     clickTool: tool({
-      description: "clicks an element on the page. use this to interact with elements.",
+      description:
+        "clicks an element on the page. use this to interact with elements.",
       inputSchema: z.object({ id: z.number() }),
       execute: async ({ id }) => {
         const xpath = state.xpathMap.get(id);
@@ -28,7 +30,8 @@ export function createTools(state: AgentState): ToolSet {
       },
     }),
     typeTool: tool({
-      description: "types text into an element on the page. use this to interact with elements.",
+      description:
+        "types text into an element on the page. use this to interact with elements.",
       inputSchema: z.object({
         id: z.number(),
         text: z.string(),
@@ -42,7 +45,7 @@ export function createTools(state: AgentState): ToolSet {
         await state.page.waitForLoadState("domcontentloaded");
         return `Typed "${text}" into element ${id}`;
       },
-    })
-  } 
+    }),
+  };
   return toolSet;
 }
