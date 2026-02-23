@@ -1,8 +1,8 @@
 export function buildPrompt(userQuery: string, url: string): string {
-  const localeDate = new Date().toLocaleDateString();
-  const isoDate = new Date().toISOString();
-  const toolSection = buildToolSection();
-  return `<system>
+    const localeDate = new Date().toLocaleDateString();
+    const isoDate = new Date().toISOString();
+    const toolSection = buildToolSection();
+    return `<system>
   <identity>You are a web automation assistant using browser automation tools to accomplish the user's goal.</identity>
   <task>
     <goal>${userQuery}</goal>
@@ -38,18 +38,18 @@ export function buildPrompt(userQuery: string, url: string): string {
 }
 
 function buildToolSection() {
-  const tools: { name: string; description: string }[] = [
-    {
-      name: "ariaTree",
-      description: "Get an accessibility (ARIA) tree for full page context",
-    },
-    { name: "clickTool", description: "Click on an element" },
-    { name: "typeTool", description: "Type text into a field" },
-  ];
+    const tools: { name: string; description: string }[] = [
+        {
+            name: "ariaTree",
+            description: "Get an accessibility (ARIA) tree for full page context",
+        },
+        { name: "clickTool", description: "Click on an element" },
+        { name: "typeTool", description: "Type text into a field" },
+    ];
 
-  const toolLines = tools
-    .map((tool) => `<tool name="${tool.name}">${tool.description}</tool>`)
-    .join("\n");
+    const toolLines = tools
+        .map((tool) => `<tool name="${tool.name}">${tool.description}</tool>`)
+        .join("\n");
 
-  return `<tools>\n${toolLines}\n</tools>`;
+    return `<tools>\n${toolLines}\n</tools>`;
 }

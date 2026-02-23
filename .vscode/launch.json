@@ -9,7 +9,7 @@
         "-r",
         "ts-node/register"
       ],
-      "args": ["${workspaceFolder}/scripts/run.ts"],
+      "args": ["${workspaceFolder}/tests/logger.ts"],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**"]
