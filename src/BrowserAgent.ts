@@ -24,6 +24,7 @@ export class BrowserAgent {
             instructions: userQuery,
             page,
             xpathMap: new Map<number, string>(),
+            needsDistillation: true,
             logger,
         };
 

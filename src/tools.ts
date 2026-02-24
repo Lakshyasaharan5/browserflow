@@ -14,10 +14,17 @@ export function createTools(state: AgentState): ToolSet {
             execute: async () => {
                 const ariaTreeLogger = toolsLogger.child("AriaTree");
 
+                if (!state.needsDistillation && state.cachedAriaTree) {
+                    ariaTreeLogger.info("Using cached tree", { nodes: state.xpathMap.size });
+                    return state.cachedAriaTree;
+                }
+
                 ariaTreeLogger.info("Distilling page");
                 const { llmReadyTree, xpathMap } = await distill(state);
-
+            
                 state.xpathMap = xpathMap;
+                state.cachedAriaTree = llmReadyTree;
+                state.needsDistillation = false;
 
                 ariaTreeLogger.info("Tree generated", { nodes: xpathMap.size });
                 return llmReadyTree;
@@ -37,8 +44,9 @@ export function createTools(state: AgentState): ToolSet {
                 }
                 await state.page.locator(xpath).click();
                 clickLogger.info("Click completed for xpath", { xpath });
-
+                
                 await state.page.waitForLoadState("domcontentloaded");
+                state.needsDistillation = true;
                 return `Clicked element ${id}`;
             },
         }),
@@ -62,6 +70,7 @@ export function createTools(state: AgentState): ToolSet {
                 typeLogger.info("Type completed for xpath", { xpath });
 
                 await state.page.waitForLoadState("domcontentloaded");
+                state.needsDistillation = true;
                 return `Typed "${text}" into element ${id}`;
             },
         }),

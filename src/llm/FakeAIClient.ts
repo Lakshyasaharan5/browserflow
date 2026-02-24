@@ -60,6 +60,7 @@ export class FakeAIClient implements LLMClient {
                 { tool: "ariaTree" },
                 { tool: "clickTool", args: { id: 24 } },
                 { tool: "ariaTree" },
+                { tool: "ariaTree" },
                 { tool: "clickTool", args: { id: 49 } },
                 { tool: "ariaTree" },
                 { tool: "clickTool", args: { id: 71 } },

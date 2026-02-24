@@ -6,6 +6,8 @@ export interface AgentState {
     instructions: string;
     page: Page;
     xpathMap: Map<number, string>;
+    needsDistillation: boolean;
+    cachedAriaTree?: string;
     logger: Logger;
 }
 
