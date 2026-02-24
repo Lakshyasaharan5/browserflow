@@ -1,11 +1,11 @@
-export function buildPrompt(userQuery: string, url: string): string {
+export function buildPrompt(instructions: string, url: string): string {
     const localeDate = new Date().toLocaleDateString();
     const isoDate = new Date().toISOString();
     const toolSection = buildToolSection();
     return `<system>
   <identity>You are a web automation assistant using browser automation tools to accomplish the user's goal.</identity>
   <task>
-    <goal>${userQuery}</goal>
+    <goal>${instructions}</goal>
     <date display="local" iso="${isoDate}">${localeDate}</date>
     <note>You may think the date is different due to knowledge cutoff, but this is the actual date.</note>
   </task>

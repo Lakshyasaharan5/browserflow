@@ -1,9 +1,13 @@
-import { Page } from "playwright";
 import { AXNodeLite } from "./types";
+import { AgentState } from "./interfaces";
 
-export async function distill(
-    page: Page,
-): Promise<{ llmReadyTree: string; xpathMap: Map<number, string> }> {
+export async function distill({
+    page,
+    logger,
+}: AgentState): Promise<{ llmReadyTree: string; xpathMap: Map<number, string> }> {
+    const distillLogger = logger.child("Distill");
+    distillLogger.info("Starting DOM distillation");
+
     const cdp = await page.context().newCDPSession(page);
 
     await cdp.send("DOM.enable");
@@ -23,6 +27,7 @@ export async function distill(
     const pruned = pruneAXTree(axTree);
     const llmReadyTree = buildLLMString(pruned);
 
+    distillLogger.info("DOM distillation completed");
     return { llmReadyTree, xpathMap };
 }
 
