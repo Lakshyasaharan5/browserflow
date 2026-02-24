@@ -21,6 +21,11 @@ export class Logger {
         this.log(chalk.red("ERROR"), this.source, message, ...data);
     }
 
+    metric(message: string, ...data: unknown[]) {
+        if (!this.source) throw new Error("Logger source missing");
+        this.log(chalk.cyanBright("METRIC"), this.source, message, ...data);
+    }
+
     child(source: string): Logger {
         const next = this.source ? `${this.source}:${source}` : source;
         return new Logger(next);
