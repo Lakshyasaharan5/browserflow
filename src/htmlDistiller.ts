@@ -2,7 +2,7 @@ import { AXNodeLite } from "./types";
 import { AgentState } from "./interfaces";
 import { encoding_for_model } from "tiktoken";
 
-const encoder = encoding_for_model("gpt-4o");
+const encoder = encoding_for_model("gpt-5-nano");
 
 function countTokens(text: string): number {
     return encoder.encode(text).length;
@@ -51,7 +51,7 @@ export async function distill({
     const nodeCountPruned = countNodes(pruned);
     const tokenCountRaw = countTokens(buildLLMString(axTree));
     const tokenCountPruned = countTokens(llmReadyTree);
-    
+
     const nodeReduction = calcReduction(nodeCountRaw, nodeCountPruned);
     const tokenReduction = calcReduction(tokenCountRaw, tokenCountPruned);
 
