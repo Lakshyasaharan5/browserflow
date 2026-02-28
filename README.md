@@ -1,6 +1,6 @@
 # BrowserFlow
 
-A lightweight AI browser automation agent built with Playwright + LLM tools.  
+A lightweight browser automation agent built by orchestrating Playwright and LLM.
 Instead of sending raw HTML to an LLM, BrowserFlow builds a compact accessibility-based representation of the page and lets the model operate through structured tools.
 
 ```typescript
