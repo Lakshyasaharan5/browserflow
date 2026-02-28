@@ -71,7 +71,7 @@ Each distillation run logs measurable metrics comparing the raw and distilled tr
 
 ## Architecture
 
-diagram....
+<img src="./assets/architecture_without_bg.png" width="50%" height="70%">
 
 ### Inspiration
 
