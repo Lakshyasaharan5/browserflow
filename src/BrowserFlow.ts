@@ -8,7 +8,7 @@ import { Logger } from "./logger";
 import { AgentState } from "./interfaces";
 import { Cache } from "./cache";
 
-export class BrowserAgent {
+export class BrowserFlow {
     async execute({ userQuery, url, test }: RunConfig): Promise<string> {
         const logger = new Logger();
         const browserLogger = logger.child("Browser");
@@ -16,7 +16,9 @@ export class BrowserAgent {
         try {
             browserLogger.info("Launching browser");
             browser = await chromium.launch({ headless: false, slowMo: 1000 });
-            const page = await browser.newPage();
+            const page = await browser.newPage({
+                viewport: { width: 800, height: 800 }
+            });
 
             browserLogger.info("Navigating to URL", url);
             await page.goto(url);

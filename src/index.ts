@@ -1,1 +1,1 @@
-export { BrowserAgent } from "./BrowserAgent";
+export { BrowserFlow } from "./BrowserFlow";

@@ -20,10 +20,10 @@ export class OpenAIClient implements LLMClient {
 
         try {
             const response = await generateText({
-                model: openai("gpt-5-nano"),
+                model: openai("gpt-5-mini"),
                 prompt: systemPrompt,
                 tools: tools,
-                stopWhen: stepCountIs(10),
+                stopWhen: stepCountIs(20),
             });
 
             openaiLogger.info("Generation finished", {
