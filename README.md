@@ -16,6 +16,10 @@ await flow.execute({
 
 [Demo video.....](https://github.com/user-attachments/assets/e823f94b-7b33-46cf-b9a7-905da866f8e3)
 
+## Architecture
+
+<img src="./assets/architecture_without_bg.png" width="70%" height="70%">
+
 ## Performance
 
 ### Replay Caching
@@ -68,10 +72,6 @@ The result is a much smaller context window, cleaner reasoning signals for the m
 ### Token reduction metrics
 
 Each distillation run logs measurable metrics comparing the raw and distilled trees. BrowserFlow tracks node counts, token counts, and reduction percentages using `tiktoken`, making optimization visible and measurable instead of relying on intuition.
-
-## Architecture
-
-<img src="./assets/architecture_without_bg.png" width="50%" height="70%">
 
 ### Inspiration
 
